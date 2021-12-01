@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('[name="Get"]').click(function () {
+          const sana = $('[name="fi"]').val();
+          $.ajax({
+            url: `http://localhost:3000/sanat/${sana}`,
+            type: "GET",
+
+            success: function (sana) {
+              console.log(sana);
+              if (sana.message !== undefined)
+                $('[id="kaannos"]').text(sana.message);
+              else $('[id="kaannos"]').text(sana);
+            },
+            error: function (xhr, resp, text) {
+              console.log(xhr, resp, text);
+            },
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <ul>
+        <li><a href="Hakulomake.html">Hae sana</a></li>
+        <li><a href="Lisayslomake.html">Lisää sana</a></li>
+      </ul>
+    </div>
+    <form sana="sana">
+      <th>hae sanaa</th>
+      <td>
+        <input
+          sana=""
+          type="text"
+          value=""
+          maxlength="35"
+          size="35"
+          name="fi"
+        />
+      </td>
+      <td></td>
+
+      <td>
+        <input name="Get" type="button" value="etsi" />
+      </td>
+    </form>
+
+    <p id="kaannos"></p>
+  </body>
+</html>
